@@ -1,6 +1,10 @@
 import { useState } from "react";
 
-const PromptExecutor = () => {
+interface PromptExecutorProps {
+  onDone?: () => void;
+}
+
+const PromptExecutor = ({ onDone }: PromptExecutorProps) => {
   const [prompt, setPrompt] = useState("");
   const [response, setResponse] = useState("");
 
@@ -13,8 +17,10 @@ const PromptExecutor = () => {
         body: JSON.stringify({ prompt }),
       });
 
+      if (onDone) onDone();
+
       if (!res.ok) throw new Error("Server error");
-      const data = await res.text(); // or JSON, if backend returns structured object
+      const data = await res.text();
       setResponse(data);
     } catch (err) {
       setResponse("Failed to process prompt.");

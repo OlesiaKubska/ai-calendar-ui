@@ -1,16 +1,8 @@
 import React, { useEffect, useState } from "react";
-
-type Event = {
-  id: string;
-  title: string;
-  description: string;
-  participants: string[];
-  start: string;
-  end: string;
-};
+import type { CalendarEvent } from "../types/CalendarEvent";
 
 const EventsTable: React.FC = () => {
-  const [events, setEvents] = useState<Event[]>([]);
+  const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -43,7 +35,7 @@ const EventsTable: React.FC = () => {
             <tr key={ev.id} className="border-t">
               <td className="px-4 py-2">{ev.title}</td>
               <td className="px-4 py-2">{ev.description}</td>
-              <td className="px-4 py-2">{ev.participants.join(", ")}</td>
+              <td className="px-4 py-2">{ev.participants?.join(", ") || ""}</td>
               <td className="px-4 py-2">
                 {new Date(ev.start).toLocaleString()}
               </td>

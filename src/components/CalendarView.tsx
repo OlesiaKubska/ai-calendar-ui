@@ -2,28 +2,22 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { useEffect, useState } from "react";
+import type { CalendarEvent } from "../types/CalendarEvent";
 
-interface Event {
-  title: string;
-  start: string;
-  end: string;
+interface CalendarViewProps {
+  events: CalendarEvent[][];
 }
 
-export default function CalendarView() {
-  const [events, setEvents] = useState<Event[]>([]);
-
-  useEffect(() => {
-    fetch("http://localhost:5047/api/v1/events")
-      .then((res) => res.json())
-      .then((data) => setEvents(data))
-      .catch((err) => console.error(err));
-  }, []);
-
+function CalendarView({ events }: CalendarViewProps) {
   return (
     <div className="max-w-6xl mx-auto py-6 px-4">
       <h2 className="text-2xl font-bold mb-4">📅 Calendar View</h2>
       <FullCalendar
+        events={events.flat().map((event) => ({
+          title: event.title,
+          start: event.start,
+          end: event.end,
+        }))}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
         headerToolbar={{
@@ -31,9 +25,10 @@ export default function CalendarView() {
           center: "title",
           right: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
-        events={events}
         height="auto"
       />
     </div>
   );
 }
+
+export default CalendarView;
