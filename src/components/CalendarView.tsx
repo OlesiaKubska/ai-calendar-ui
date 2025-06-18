@@ -8,7 +8,7 @@ interface CalendarViewProps {
   events: CalendarEvent[][];
 }
 
-function CalendarView({ events }: CalendarViewProps) {
+const CalendarView = ({ events }: CalendarViewProps) => {
   return (
     <div className="max-w-6xl mx-auto py-6 px-4">
       <h2 className="text-2xl font-bold mb-4">📅 Calendar View</h2>
@@ -29,6 +29,6 @@ function CalendarView({ events }: CalendarViewProps) {
       />
     </div>
   );
-}
+};
 
 export default CalendarView;

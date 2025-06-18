@@ -7,7 +7,7 @@ import type { CalendarEvent } from "../src/types/CalendarEvent";
 
 const VITE_API_URL = "https://aicalendar-gqcp.onrender.com";
 
-function App() {
+const App = () => {
   const [events, setEvents] = useState<CalendarEvent[]>([]);
 
   const fetchEvents = async () => {
@@ -15,6 +15,7 @@ function App() {
       const res = await fetch(`${VITE_API_URL}/api/v1/events`);
       const data = await res.json();
       setEvents(data);
+      localStorage.setItem("calendarEvents", JSON.stringify(data));
     } catch (err) {
       console.error(err);
       setEvents([]);
@@ -22,6 +23,11 @@ function App() {
   };
 
   useEffect(() => {
+    const saved = localStorage.getItem("calendarEvents");
+    if (saved) {
+      setEvents(JSON.parse(saved));
+    }
+
     fetchEvents();
   }, []);
 
@@ -40,6 +46,6 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
 export default App;

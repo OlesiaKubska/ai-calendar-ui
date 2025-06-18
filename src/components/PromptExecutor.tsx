@@ -10,6 +10,7 @@ const PromptExecutor = ({ onDone }: PromptExecutorProps) => {
 
   const handleSubmit = async () => {
     if (!prompt.trim()) return;
+
     try {
       const res = await fetch(
         "https://aicalendar-gqcp.onrender.com/api/v1/events/prompt",
@@ -20,11 +21,11 @@ const PromptExecutor = ({ onDone }: PromptExecutorProps) => {
         }
       );
 
-      if (onDone) onDone();
-
       if (!res.ok) throw new Error("Server error");
       const data = await res.text();
       setResponse(data);
+
+      if (onDone) onDone();
     } catch (err) {
       setResponse("Failed to process prompt.");
       console.error(err);

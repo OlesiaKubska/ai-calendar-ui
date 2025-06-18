@@ -1,17 +1,41 @@
 import React, { useEffect, useState } from "react";
 import type { CalendarEvent } from "../types/CalendarEvent";
 
+const LOCAL_KEY = "next_week_events";
+
 const EventsTable: React.FC = () => {
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://aicalendar-gqcp.onrender.com/api/v1/events/next-week")
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchEvents = async () => {
+      const cached = localStorage.getItem(LOCAL_KEY);
+      if (cached) {
+        try {
+          const parsed = JSON.parse(cached);
+          setEvents(parsed);
+          setLoading(false);
+        } catch (err) {
+          console.warn("Invalid cached data", err);
+        }
+      }
+
+      try {
+        const res = await fetch(
+          "https://aicalendar-gqcp.onrender.com/api/v1/events/next-week"
+        );
+        if (!res.ok) throw new Error("Failed to fetch events");
+        const data = await res.json();
         setEvents(data);
+        localStorage.setItem(LOCAL_KEY, JSON.stringify(data));
+      } catch (err) {
+        console.error("Error fetching events:", err);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchEvents();
   }, []);
 
   if (loading)
