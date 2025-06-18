@@ -1,54 +1,87 @@
-# React + TypeScript + Vite
+# 🗓️ AI Calendar UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### React + TypeScript + Vite
 
-Currently, two official plugins are available:
+This is the **frontend** part of the **AI Calendar** project — a smart calendar application powered by React, TypeScript, and natural language prompts.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The app allows users to **view events**, **create new ones via prompts**, and **see available time slots** shared among participants.
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🌐 Live Demo
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+🔗 [GitHub Pages Deployment](https://olesiakubska.github.io/ai-calendar-ui/)
+
+
+## 🧩 Features
+
+- 📅 Weekly calendar using **FullCalendar**
+- 🧠 Prompt Executor: interact with the backend via natural language
+- 📋 Event list for next week
+- 🔁 Sync with backend API deployed on **Render**
+
+
+## 🛠 Tech Stack
+
+- **React 18**
+- **TypeScript**
+- **Vite**
+- **TailwindCSS**
+- **FullCalendar**
+- Backend API: [.NET 8 WebAPI on Render](https://aicalendar-gqcp.onrender.com)
+
+
+## ⚙️ Getting Started Locally
+
+### 1. Clone the repo
+
+```bash
+git clone https://github.com/OlesiaKubska/ai-calendar-ui.git
+cd ai-calendar-ui
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Install dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm install
 ```
+
+### 3. Start the dev server
+
+```bash
+npm run dev
+Then open http://localhost:5173 in your browser.
+```
+
+## 🧠 Project Structure
+
+```bash
+.
+├── src/
+│   ├── components/       # Calendar, EventsTable, PromptExecutor
+│   ├── types/            # TypeScript interfaces
+│   ├── App.tsx           # Main app logic
+│   └── main.tsx          # Entry point
+├── .env
+├── .gitignore
+├── index.html
+└── vite.config.ts
+```
+
+## 📦 Build
+
+```bash
+npm run build
+```
+
+## 🔒 Notes
+
+- CORS is enabled on the backend for this frontend’s origin.
+
+- Prompt endpoint: POST /api/v1/events/prompt
+
+
+### 👩‍💻 Author
+
+#### Olesia Kubska
+- 📧 kublesia0908@gmail.com
+- 🔗 [GitHub](https://github.com/OlesiaKubska)
