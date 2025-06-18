@@ -5,12 +5,14 @@ import CalendarView from "./components/CalendarView";
 import PromptExecutor from "./components/PromptExecutor";
 import type { CalendarEvent } from "../src/types/CalendarEvent";
 
+const VITE_API_URL = import.meta.env.VITE_API_URL;
+
 function App() {
   const [events, setEvents] = useState<CalendarEvent[]>([]);
 
   const fetchEvents = async () => {
     try {
-      const res = await fetch("http://localhost:5047/api/v1/events");
+      const res = await fetch(`${VITE_API_URL}/api/v1/events`);
       const data = await res.json();
       setEvents(data);
     } catch (err) {
