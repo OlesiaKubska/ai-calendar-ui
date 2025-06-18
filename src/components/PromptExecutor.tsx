@@ -11,11 +11,14 @@ const PromptExecutor = ({ onDone }: PromptExecutorProps) => {
   const handleSubmit = async () => {
     if (!prompt.trim()) return;
     try {
-      const res = await fetch("http://localhost:5047/api/v1/events/prompt", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt }),
-      });
+      const res = await fetch(
+        "https://aicalendar-gqcp.onrender.com/api/v1/events/prompt",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt }),
+        }
+      );
 
       if (onDone) onDone();
 

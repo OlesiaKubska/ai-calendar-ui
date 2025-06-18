@@ -6,7 +6,7 @@ const EventsTable: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5047/api/v1/events/next-week")
+    fetch("https://aicalendar-gqcp.onrender.com/api/v1/events/next-week")
       .then((res) => res.json())
       .then((data) => {
         setEvents(data);
